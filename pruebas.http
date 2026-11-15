@@ -1,32 +1,94 @@
-### Archivo de pruebas · reemplazá las rutas por las de tu enunciado
-### En IntelliJ: abrí este archivo y tocá el ▶ verde de cada petición.
+### Pruebas de la API Biblioteca · una petición de ejemplo por cada endpoint
+### En IntelliJ: tocá el ▶ verde de cada petición, de arriba hacia abajo, con la app recién iniciada.
 
 @base = http://localhost:8080/api
 
-### Listar
-GET {{base}}/recursos
-
-### Crear
-POST {{base}}/recursos
+### 1. Crear libro (201)
+POST {{base}}/libros
 Content-Type: application/json
 
-{
-  "campo1": "valor",
-  "campo2": "valor",
-  "campo3": "valor"
-}
+{ "titulo": "Rayuela", "autor": "Julio Cortázar", "isbn": "ISBN-001" }
 
-### Buscar por id
-GET {{base}}/recursos/1
-
-### Error de validación (400)
-POST {{base}}/recursos
+### 2. Error de validación (400)
+POST {{base}}/libros
 Content-Type: application/json
 
-{ "campo1": "" }
+{ "titulo": "", "autor": "", "isbn": "" }
 
-### Cambiar estado
-PATCH {{base}}/otro-recurso/1/estado
+### 3. Listar libros (200)
+GET {{base}}/libros
+
+### 4. Buscar libro por id (200)
+GET {{base}}/libros/1
+
+### 5. Modificar libro (200)
+PUT {{base}}/libros/1
 Content-Type: application/json
 
-{ "estado": "OTRO_ESTADO" }
+{ "titulo": "Rayuela (2.ª ed.)", "autor": "Julio Cortázar", "isbn": "ISBN-001" }
+
+### 6. Crear socio (201)
+POST {{base}}/socios
+Content-Type: application/json
+
+{ "nombre": "Ana Díaz", "email": "ana@mail.com" }
+
+### 7. Listar socios (200)
+GET {{base}}/socios
+
+### 8. Buscar socio por id (200)
+GET {{base}}/socios/1
+
+### 9. Modificar socio (200)
+PUT {{base}}/socios/1
+Content-Type: application/json
+
+{ "nombre": "Ana María Díaz", "email": "ana@mail.com" }
+
+### 10. Crear préstamo (201, queda ACTIVO)
+POST {{base}}/prestamos
+Content-Type: application/json
+
+{ "libroId": 1, "socioId": 1, "fechaDevolucion": "2027-01-15" }
+
+### 11. Listar préstamos filtrando por estado (200)
+GET {{base}}/prestamos?estado=ACTIVO
+
+### 12. Buscar préstamo por id (200)
+GET {{base}}/prestamos/1
+
+### 13. Préstamos de un socio (200)
+GET {{base}}/socios/1/prestamos
+
+### 14. Modificar préstamo (200)
+PUT {{base}}/prestamos/1
+Content-Type: application/json
+
+{ "libroId": 1, "socioId": 1, "fechaDevolucion": "2027-01-20" }
+
+### 15. Renovar préstamo: suma 7 días (200)
+PATCH {{base}}/prestamos/1/renovar
+
+### 16. Libros disponibles (200, vacío: el libro 1 está prestado)
+GET {{base}}/libros?disponible=true
+
+### 17. Ranking de libros más prestados (200)
+GET {{base}}/libros/mas-prestados?top=5
+
+### 18. Devolver con atraso: calcula la multa (200)
+PATCH {{base}}/prestamos/1/estado
+Content-Type: application/json
+
+{ "estado": "DEVUELTO", "fechaRealDevolucion": "2027-02-01" }
+
+### 19. Pagar la multa (200)
+PATCH {{base}}/prestamos/1/pagar-multa
+
+### 20. Borrar préstamo (204)
+DELETE {{base}}/prestamos/1
+
+### 21. Borrar libro (204)
+DELETE {{base}}/libros/1
+
+### 22. Borrar socio (204)
+DELETE {{base}}/socios/1
