@@ -1,1 +1,2 @@
-biblioteca
+# Escribí en la ÚLTIMA línea UNA de estas palabras (sin #): biblioteca, gimnasio, taller, canchas, eventos
+BIBLIOTECA
