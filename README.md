@@ -1,6 +1,6 @@
 # TP Integrador · DAW1 — Biblioteca
  
-**Alumno/a:** Apellido, Nombre · **Legajo:** 00000
+**Alumno/a:** Yaleva, Noe · **Legajo:** 41730949 
 **Enunciado elegido:** biblioteca
  
 ## Descripción
